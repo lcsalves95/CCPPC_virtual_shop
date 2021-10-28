@@ -9,6 +9,7 @@ namespace CCPPC.VirtualShop.Domain.Interfaces
         Task<Product> Insert(Product product);
         Task<Product> Update(Product product);
         Task<Product> Get(long productId);
-        Task<IEnumerable<Product>> GetAdd();
+        Task<Product> GetByName(string name);
+        Task<IEnumerable<Product>> GetAll();
     }
 }

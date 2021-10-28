@@ -10,6 +10,7 @@ namespace CCPPC.VirtualShop.Domain.Entities
             Description = description;
             StockQuantity = stockQuantity;
             Value = value;
+            CreatedAt = DateTime.Now;
         }
 
         public string Name { get; private set; }
@@ -17,10 +18,10 @@ namespace CCPPC.VirtualShop.Domain.Entities
         public int StockQuantity { get; private set; }
         public double Value { get; private set; }
 
-        public void UpdateName(string name)
-        {
-            if (string.IsNullOrEmpty(name) || string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException(nameof(name));
-            Name = name;
-        }
+        public void AddStockQuantity(int quantity) => StockQuantity += quantity;
+        public void UpdateName(string name) => Name = name;
+        public void UpdateDescription(string description) => Description = description;
+        public void UpdateValue(double value) => Value = value;
+        public void UpdateStockQuantity(int quantity) => StockQuantity = quantity;
     }
 }

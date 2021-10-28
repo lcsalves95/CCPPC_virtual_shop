@@ -1,6 +1,9 @@
+using CCPPC.VirtualShop.Api.Configuration;
 using CCPPC.VirtualShop.Application.Interfaces;
 using CCPPC.VirtualShop.Application.Services;
 using CCPPC.VirtualShop.Data.Context;
+using CCPPC.VirtualShop.Data.Repositories;
+using CCPPC.VirtualShop.Domain.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -22,9 +25,11 @@ namespace CCPPC.VirtualShop.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHealthCheckConfiguration(Configuration);
             services.AddDbContext<ApplicationDbContext>(x => x.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
 
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IProductRepository, ProductRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -41,7 +46,7 @@ namespace CCPPC.VirtualShop.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CCPPC.VirtualShop.Api v1"));
             }
-
+            app.UseHealthCheckConfiguration();
             app.UseHttpsRedirection();
 
             app.UseRouting();

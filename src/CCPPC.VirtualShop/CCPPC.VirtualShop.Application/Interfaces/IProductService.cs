@@ -1,15 +1,14 @@
 ﻿using CCPPC.VirtualShop.Application.Models;
-using CCPPC.VirtualShop.Domain.Entities;
-using System.Collections.Generic;
+using CCPPC.VirtualShop.Domain.Models;
 using System.Threading.Tasks;
 
 namespace CCPPC.VirtualShop.Application.Interfaces
 {
     public interface IProductService
     {
-        Task<Product> Insert(ProductViewModel model);
-        Task<Product> Update(long productId, ProductViewModel model);
-        Task<Product> Get(long productId);
-        Task<IEnumerable<Product>> GetAll();
+        Task<RequestResult> Insert(ProductViewModel model);
+        Task<RequestResult> Update(long productId, ProductViewModel model);
+        Task<RequestResult> Get(long productId);
+        Task<RequestResult> GetAll();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CCPPC.VirtualShop.Application.Interfaces;
 using CCPPC.VirtualShop.Application.Models;
+using CCPPC.VirtualShop.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -19,7 +20,39 @@ namespace CCPPC.VirtualShop.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Insert([FromBody] ProductViewModel model)
         {
-            return Ok(await _service.AddProduc());
+            RequestResult response = await _service.Insert(model);
+            return FormatResponse(response);
+        }
+
+        [HttpGet("{productId}")]
+        public async Task<IActionResult> Get(long productId)
+        {
+            RequestResult response = await _service.Get(productId);
+            return FormatResponse(response);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            RequestResult response = await _service.GetAll();
+            return FormatResponse(response);
+        }
+
+        [HttpPut("{productId}")]
+        public async Task<IActionResult> Update(long productId, [FromBody] ProductViewModel model)
+        {
+            RequestResult response = await _service.Update(productId, model);
+            return FormatResponse(response);
+        }
+
+        private IActionResult FormatResponse(RequestResult response)
+        {
+            return response.Status switch
+            {
+                Domain.Enums.RequestStatus.Error => BadRequest(response),
+                Domain.Enums.RequestStatus.NotFount => NotFound(response),
+                _ => Ok(response),
+            };
         }
     }
 }
