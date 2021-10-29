@@ -4,6 +4,6 @@
     {
         Success = 1,
         Error = 2,
-        NotFount = 3,
+        NotFound = 3,
     }
 }

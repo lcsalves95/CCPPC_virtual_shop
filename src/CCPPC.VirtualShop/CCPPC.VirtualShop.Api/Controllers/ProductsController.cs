@@ -1,11 +1,13 @@
 ﻿using CCPPC.VirtualShop.Application.Interfaces;
 using CCPPC.VirtualShop.Application.Models;
 using CCPPC.VirtualShop.Domain.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace CCPPC.VirtualShop.Api.Controllers
 {
+    [EnableCors("CORSPOLICY")]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
@@ -50,7 +52,7 @@ namespace CCPPC.VirtualShop.Api.Controllers
             return response.Status switch
             {
                 Domain.Enums.RequestStatus.Error => BadRequest(response),
-                Domain.Enums.RequestStatus.NotFount => NotFound(response),
+                Domain.Enums.RequestStatus.NotFound => NotFound(response),
                 _ => Ok(response),
             };
         }
