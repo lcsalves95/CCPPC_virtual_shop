@@ -21,6 +21,9 @@ namespace CCPPC.VirtualShop.Api.Configuration
             service.AddTransient<IProductService, ProductService>();
             service.AddTransient<IProductRepository, ProductRepository>();
 
+            service.AddTransient<IVirtualStoreService, VirtualStoreService>();
+            service.AddTransient<IVirtualStoreRepository, VirtualStoreRepository>();
+
             service.AddControllers();
         }
 

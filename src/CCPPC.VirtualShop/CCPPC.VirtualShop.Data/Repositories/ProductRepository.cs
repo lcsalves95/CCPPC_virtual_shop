@@ -71,7 +71,7 @@ namespace CCPPC.VirtualShop.Data.Repositories
             try
             {
                 var insertResult = await _context.Products.AddAsync(product);
-                if (await Commit() > 0)
+                if (await _context.Commit() > 0)
                     return insertResult.Entity;
                 return default;
             }
@@ -89,7 +89,7 @@ namespace CCPPC.VirtualShop.Data.Repositories
             try
             {
                 var updateResult = _context.Products.Update(product);
-                if (await Commit() > 0)
+                if (await _context.Commit() > 0)
                     return updateResult.Entity;
                 return default;
             }
@@ -100,11 +100,6 @@ namespace CCPPC.VirtualShop.Data.Repositories
                     LogType.Error);
                 throw;
             }
-        }
-
-        public async Task<int> Commit()
-        {
-            return await _context.SaveChangesAsync();
         }
     }
 }
